@@ -19,10 +19,7 @@ public:
 
     bool stopnow(double xdiff, double fdiff, double gmin, double fval, int n) {
         mCnt++;
-        if (fval < 1e-3)
-            return true;
-        else
-            return false;
+        return false;
     }
 
     int mCnt = 0;
@@ -79,16 +76,16 @@ int main(int argc, char** argv) {
     COMPI::MPProblem<double> *mpp = fact.getProblem();
 #endif
 
-#if 0
+#if 1
     OPTITEST::RosenbrockProblemFactory fact(n, -4, 8);
     COMPI::MPProblem<double> *mpp = fact.getProblem();
 #endif    
-    
-#if 1     
+
+#if 0     
     OPTITEST::CosmixtureProblemFactory fact(n, -4, 8);
     COMPI::MPProblem<double> *mpp = fact.getProblem();
 #endif    
-    
+
     COMPI::FuncCnt<double> *obj = new COMPI::FuncCnt<double>(*mpp->mObjectives.at(0));
     mpp->mObjectives.pop_back();
     mpp->mObjectives.push_back(obj);
@@ -107,13 +104,13 @@ int main(int argc, char** argv) {
 
     GFSStopper stp;
 
-#if 1      
+#if 0      
     LOCSEARCH::GFSDesc<double> desc(*mpp, stp, &ls);
 #else
     LOCSEARCH::GFSDesc<double> desc(*mpp, stp);
 #endif    
 
-#if 1           
+#if 0           
     desc.getOptions().mOnlyCoordinateDescent = true;
 #endif
 
